@@ -1,10 +1,10 @@
 {
-    "files.insertFinalNewline": true,
-    "editor.formatOnSave": true,
+    "files.insertFinalNewline": false,
+    "editor.formatOnSave": false,
     "[python]": {
         "editor.defaultFormatter": "charliermarsh.ruff",
         "editor.codeActionsOnSave": {
-            "source.organizeImports": "explicit"
+            "source.organizeImports": "never"
         }
     },
     "ruff.lineLength": 119,
@@ -13,7 +13,7 @@
         "F841", // Ignore unused variables
     ],
     "notebook.codeActionsOnSave": {
-        "notebook.source.organizeImports": "explicit"
+        "notebook.source.organizeImports": "never"
     },
     "notebook.formatOnSave.enabled": false,
 }
