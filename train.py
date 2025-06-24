@@ -30,7 +30,7 @@ def get_run_name(train_cfg):
 
     return f"nanoVLM_{dataset_size}_{batch_size}_{epochs}_{learning_rate}_{date}"
 
-def get_dataloaders(train_cfg, vlm_cfg):
+def get_dataloaders(train_cfg: config.TrainConfig, vlm_cfg: config.VLMConfig):
     # Create datasets
     image_processor = get_image_processor(vlm_cfg.vit_img_size)
     tokenizer = get_tokenizer(vlm_cfg.lm_tokenizer)
@@ -104,7 +104,7 @@ def test_mmstar(model, tokenizer, test_loader, device):
 
     return accuracy
 
-def train(train_cfg, vlm_cfg):
+def train(train_cfg: config.TrainConfig, vlm_cfg: config.VLMConfig):
     train_loader, test_loader = get_dataloaders(train_cfg, vlm_cfg)
     tokenizer = get_tokenizer(vlm_cfg.lm_tokenizer)
 
