@@ -2,3 +2,5 @@ torch==2.10.*
 torchvision==0.25.*
 transformers==5.*  # For loading hf model checkpoints
 pre-commit==4.*  # Code quality
+matplotlib==3.*
+datasets==4.*

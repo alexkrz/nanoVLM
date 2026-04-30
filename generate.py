@@ -3,12 +3,12 @@ import argparse
 import torch
 from PIL import Image
 
+from data.processors import get_image_processor, get_tokenizer
+from models.vision_language_model import VisionLanguageModel
+
 torch.manual_seed(0)
 if torch.cuda.is_available():
     torch.cuda.manual_seed_all(0)
-
-from data.processors import get_image_processor, get_tokenizer
-from models.vision_language_model import VisionLanguageModel
 
 
 def parse_args():
@@ -52,7 +52,7 @@ def main():
     image_processor = get_image_processor(model.cfg.vit_img_size)
 
     template = f"Question: {args.prompt} Answer:"
-    encoded = tokenizer.batch_encode_plus([template], return_tensors="pt")
+    encoded = tokenizer([template], return_tensors="pt")
     tokens = encoded["input_ids"].to(device)
 
     img = Image.open(args.image).convert("RGB")
