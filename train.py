@@ -1,5 +1,6 @@
 import argparse
 import math
+import os
 import random
 import time
 from dataclasses import asdict
@@ -11,13 +12,6 @@ import wandb
 from datasets import concatenate_datasets, load_dataset
 from torch.utils.data import DataLoader
 
-torch.manual_seed(0)
-if torch.cuda.is_available():
-    torch.cuda.manual_seed_all(0)
-
-# Otherwise, the tokenizer will through a warning
-import os
-
 import models.config as config
 import models.utils as utils
 from data.collators import MMStarCollator, VQACollator
@@ -25,6 +19,11 @@ from data.datasets import MMStarDataset, VQADataset
 from data.processors import get_image_processor, get_tokenizer
 from models.vision_language_model import VisionLanguageModel
 
+torch.manual_seed(0)
+if torch.cuda.is_available():
+    torch.cuda.manual_seed_all(0)
+
+# Otherwise, the tokenizer will throw a warning
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 
@@ -162,7 +161,7 @@ def get_lr(it, max_lr, max_steps):
     return min_lr + coeff * (max_lr - min_lr)
 
 
-def train(train_cfg, vlm_cfg):
+def train(train_cfg: config.TrainConfig, vlm_cfg: config.VLMConfig):
     train_loader, val_loader, test_loader = get_dataloaders(train_cfg, vlm_cfg)
     tokenizer = get_tokenizer(vlm_cfg.lm_tokenizer)
 
