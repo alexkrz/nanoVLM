@@ -1,21 +1,21 @@
 import argparse
+import os
 
 import torch
 import torch.optim as optim
 from datasets import load_dataset
 from torch.utils.data import DataLoader
 
-torch.manual_seed(0)
-if torch.cuda.is_available():
-    torch.cuda.manual_seed_all(0)
-
-import os
-
 import models.config as config
 from data.collators import VQACollator
 from data.datasets import VQADataset
 from data.processors import get_image_processor, get_tokenizer
 from models.vision_language_model import VisionLanguageModel
+
+torch.manual_seed(0)
+if torch.cuda.is_available():
+    torch.cuda.manual_seed_all(0)
+
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
@@ -202,7 +202,7 @@ def main():
     parser.add_argument(
         "--batch_sizes",
         type=str,
-        default="1 2 4",
+        default="16 32 64",
         help='Space-separated list of batch sizes to test (e.g., "1 2 4 8").',
     )
     parser.add_argument(

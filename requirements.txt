@@ -4,3 +4,4 @@ transformers==5.*  # For loading hf model checkpoints
 pre-commit==4.*  # Code quality
 matplotlib==3.*
 datasets==4.*
+wandb==0.26.*

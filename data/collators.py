@@ -19,10 +19,9 @@ class VQACollator:  # Visual Question Answering Collator
         for i in range(len(texts)):
             input_sequences.append(f"{texts[i]}{answers[i]}")
 
-        encoded_full_sequences = self.tokenizer.batch_encode_plus(
+        encoded_full_sequences = self.tokenizer(
             input_sequences,
             padding="max_length",
-            padding_side="left",
             return_tensors="pt",
             truncation=True,
             max_length=self.max_length,
@@ -81,13 +80,9 @@ class MMStarCollator:  # https://huggingface.co/datasets/Lin-Chen/MMStar
         # Stack images
         images = torch.stack(images)
 
-        encoded_question_sequences = self.tokenizer.batch_encode_plus(
-            questions, padding=True, padding_side="left", return_tensors="pt"
-        )
+        encoded_question_sequences = self.tokenizer(questions, padding=True, return_tensors="pt")
 
-        encoded_answer_sequences = self.tokenizer.batch_encode_plus(
-            answers, padding=True, padding_side="left", return_tensors="pt"
-        )
+        encoded_answer_sequences = self.tokenizer(answers, padding=True, return_tensors="pt")
 
         return {
             "images": images,
